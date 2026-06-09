@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de controle</title>
+    </head>
+       <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+               grid-area: titulo;
+               color: orange;
+               text-align: center;
+               padding: 20px;
+               border-bottom: 2px solid orange;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 250px 1fr; 
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .botoes {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid orange;
+            background-color: transparent;
+            color: orange;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: orange;
+            color: black;
+        }
+
+        #resultado {
+            background-color: #111;
+            padding: 15px;
+            border: 1px solid orange;
+            border-radius: 5px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            color: white;
+        }
+
+        table, th, td {
+            border: 1px solid orange;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: orange;
+            color: black;
+        }
+    </style>
+    <body>
+   <h1 >Painel de controle</h1>
+
+    <button  onclick="InserirDados()">Inserir dados</button>
+    <br>
+    <button onclick="VisualizarStatus()">Visualizar status</button>
+    <br>
+    <button onclick="ExecutarAnalise()">Executar análise</button>
+    <br>
+    <button onclick="HistoricoDasLeituras()">Histórico das leituras</button>
+    <br>
+    <button onclick="Condicoes()">Condições</button>
+    <br>
+    <button onclick="EncerrarSistema()">Encerrar sistema</button>
+    
+
+    <div id="resultado"></div>
+
+    <script>
+        let leituras = [];
+
+        function InserirDados() {
+            let temperatura = parseFloat(prompt('Temperatura (°C): '));
+            let energia = parseFloat(prompt('Energia (%): '));
+            let comunicacao = parseInt(prompt('Comunicação (1=OK, 0=Falha): '));
+
+            let info = { temp: temperatura, energia: energia, comunicacao: comunicacao };
+            leituras.push(info);
+        }
+
+        function VisualizarStatus() {
+            if (leituras.length === 0) {
+               document.getElementById("resultado").innerHTML = "<p>Nenhum dado inserido ainda.</p>";
+            } else {
+                let ultimaLeitura = leituras[leituras.length - 1];
+
+                alert("Temperatura: " + ultimaLeitura.temp + " °C");
+                alert("Energia: " + ultimaLeitura.energia + "%");
+                alert("Comunicação: " + ultimaLeitura.comunicacao);
+
+                if (ultimaLeitura.temp > 80) {
+                    alert("Alerta de superaquecimento!");
+                }
+                if (ultimaLeitura.energia < 20) {
+                    alert("Economia de energia ativado");
+                }
+                if (ultimaLeitura.comunicacao === 0) {
+                    alert("Falha de comunicação!");
+                }
+            }
+        }
+        function ExecutarAnalise(){ 
+            if (leituras.length === 0) {
+                document.getElementById("resultado").innerHTML = "<p>Sem dados para análise.</p>";
+            } else {
+                let ultimaLeitura = leituras[leituras.length - 1];
+                // vetor dos problemas
+                let problemas = [];
+
+                if (ultimaLeitura.temp > 80) problemas.push('Aviso de superaquecimento');
+                if (ultimaLeitura.energia < 20) problemas.push(' Ligar modo de economia de energia');
+                if (ultimaLeitura.comunicacao === 0) problemas.push(' Falha na comunicação');
+
+                if (problemas.length === 0){
+                    document.getElementById("resultado").innerHTML = "<p style='color:green;'> Sistema estável, sem problemas detectados.</p>";
+                } else {
+                    document.getElementById("resultado").innerHTML = 
+                        "<p style='color:red;'>Problemas encontrados:</p><ul><li>" + problemas.join("</li><li>") + "</li></ul>";
+                } 
+            }
+        }
+        function HistoricoDasLeituras(){
+             if (leituras.length === 0) {
+                document.getElementById("resultado").innerHTML = "<p>Sem registro de dados.</p>";
+            } else {
+              let tabela = "<h3> Histórico das Leituras</h3>";
+        tabela += "<table border='1' cellpadding='5' cellspacing='0'>";
+        tabela += "<tr><th>Temperatura (°C)</th><th>Energia (%)</th><th>Comunicação</th></tr>";
+
+        for (let i = 0; i < leituras.length; i++) {
+            tabela += "<tr>";
+            tabela += "<td>" + leituras[i].temp + "</td>";
+            tabela += "<td>" + leituras[i].energia + "</td>";
+            tabela += "<td>" + (leituras[i].comunicacao === 1 ? "OK" : "Falha") + "</td>";
+            tabela += "</tr>";
+        }
+
+        tabela += "</table>";
+        document.getElementById("resultado").innerHTML = tabela;
+    }
+    } 
+    function EncerrarSistema(){
+        leituras = [];
+          document.getElementById("resultado").innerHTML = 
+        "<p style='color:blue;'> Sistema encerrado</p>";
+    }
+    function Condicoes(){ 
+       let mensagem = `
+        <h3> Condições do Sistema</h3>
+        <p>
+            Temperatura maior que 80 → Superaquecimento<br>
+            Energia menor que 20 → Economia de energia<br>
+            Comunicação = 0 → Falha na comunicação<br>
+            Comunicação = 1 →  Comunicação normal
+        </p>
+    `;
+    document.getElementById("resultado").innerHTML = mensagem;
+ }
+
+ </script>
+</body>
+</html>
