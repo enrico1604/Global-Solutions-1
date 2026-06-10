@@ -2,16 +2,19 @@ Nome dos Integrantes  e RM's
 Enrico Marinho de Aquino RM569338
 Fernando Lobato Rodrigues RM569377
 Manoel da Silva Ferreira RM572045
+--------------------------------------------------------------------------------------------------------------------
 
 
 
 
 
 
-
-
+-------------------------------------------------------------------------------------------------------------------
 Para acessar a a documentação, clicar em "view raw" quando acessar a página da mesma, caso não de certo, a mesma documentação vai estar alocada abaixo junto do link do fluxograma e o link do video demonstrativo:
 
+https://youtu.be/vORxfqyiKno
+https://miro.com/app/board/uXjVHIZGwbA=/?share_link_id=198049153593
+--------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -20,6 +23,7 @@ Para acessar a a documentação, clicar em "view raw" quando acessar a página d
 
 
 
+-------------------------------------------------------------------------------------------------------------------
 DSA-GS
 Explicação do código:
 O sistema desenvolvido usa um vetor chamado leituras[], responsável por armazenar objetos que contém três atributos principais: temperatura, energia e comunicação. Cada vez que o usuário insere informações, esses valores são registrados nesse vetor, permitindo que o sistema mantenha um histórico das leituras realizadas (mais tarde usada para a função HistoricoDasLeituras().
