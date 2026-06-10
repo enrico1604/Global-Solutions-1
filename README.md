@@ -10,7 +10,7 @@ Manoel da Silva Ferreira RM572045
 
 
 
-Para acessar a a documentação, clicar em "view raw" quando acessar a página da mesma, caso não de certo, a mesma documentação vai estar alocada abaixo:
+Para acessar a a documentação, clicar em "view raw" quando acessar a página da mesma, caso não de certo, a mesma documentação vai estar alocada abaixo junto do link do fluxograma e o link do video demonstrativo:
 
 
 
